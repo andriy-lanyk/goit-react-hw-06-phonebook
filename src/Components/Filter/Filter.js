@@ -3,20 +3,10 @@ import PropTypes from "prop-types";
 import { Label, Message } from "./Filter.styles";
 
 const Filter = ({ change, filter, contacts }) => {
-  function getFilterValue(e) {
-    const { value } = e.currentTarget;
-    change(value);
-  }
-
   return contacts.length !== 0 ? (
     <Label>
       Find contacts by Name
-      <input
-        type="text"
-        name="filter"
-        value={filter}
-        onChange={getFilterValue}
-      />
+      <input type="text" name="Find contact" value={filter} onChange={change} />
     </Label>
   ) : (
     <Message>Your Phonebook don`t have contacts</Message>

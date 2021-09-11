@@ -1,39 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 
 import { Form, Label, Btn } from "./ContactForm.styles";
 
-function ContactForm({ submit }) {
-  const [name, setName] = useState("");
-  const [number, setNumber] = useState("");
-
-  function getValue(e) {
-    const { name, value } = e.currentTarget;
-    switch (name) {
-      case "name":
-        setName(value);
-        break;
-      case "number":
-        setNumber(value);
-        break;
-      default:
-        return;
-    }
-  }
-
-  function handleChange(e) {
-    e.preventDefault();
-    submit(name, number);
-    reset();
-  }
-
-  function reset() {
-    setName("");
-    setNumber("");
-  }
-
+function ContactForm({ submit, change, number, name }) {
   return (
-    <Form onSubmit={handleChange}>
+    <Form onSubmit={submit}>
       <Label>
         Name
         <input
@@ -42,7 +14,7 @@ function ContactForm({ submit }) {
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
           title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
           required
-          onChange={getValue}
+          onChange={change}
           value={name}
         />
       </Label>
@@ -55,7 +27,7 @@ function ContactForm({ submit }) {
           title="Номер телефона должен состоять цифр и может содержать пробелы, тире, круглые скобки и может начинаться с +"
           required
           value={number}
-          onChange={getValue}
+          onChange={change}
         />
       </Label>
       <Btn type="submit">Add contact</Btn>
@@ -65,6 +37,9 @@ function ContactForm({ submit }) {
 
 ContactForm.propTypes = {
   submit: PropTypes.func.isRequired,
+  change: PropTypes.func.isRequired,
+  number: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
 };
 
 export default ContactForm;
